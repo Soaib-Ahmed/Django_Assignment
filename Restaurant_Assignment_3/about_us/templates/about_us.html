@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+  {% load static %}  <!-- Add this line to load the static template tag -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>About Our Restaurant</h2>
+        <p>
+          Welcome to Soaib's Live Kitchen, where passion for food and culinary artistry come alive. Founded by Chef Soaib, our restaurant is a testament to his lifelong dedication and love for creating exceptional dining experiences. With a focus on using the finest ingredients and innovative cooking techniques, Chef Soaib brings a unique flair to every dish. From sizzling grills to tantalizing aromas, our kitchen is a hub of creativity and gastronomic delights. We invite you to embark on a culinary journey with us, where flavors blend harmoniously and memories are made. Come and experience the vibrant energy of Soaib's Live Kitchen, where food is not just a meal but a celebration of taste, culture, and passion.
+        </p>
+        <p>
+          Join us at Soaib's Live Kitchen and allow us to transport you to a world of culinary delights. Indulge in the artistry of flavors, the warmth of our hospitality, and the joy of sharing a meal with friends and family. We invite you to experience the passion and dedication that make our restaurant a truly exceptional dining destination.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <img src="{% static 'img/mine.jpg' %}" alt="About Us Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+{% endblock %}

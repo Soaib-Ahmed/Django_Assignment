@@ -1,0 +1,9 @@
+
+.navbar-nav .nav-item .nav-link {
+  color: #000; 
+  transition: color 0.3s; 
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #00f;
+}
