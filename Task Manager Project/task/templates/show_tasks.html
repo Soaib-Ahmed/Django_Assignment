@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>All Tasks</h1>
+        <div class="row">
+            {% for task in tasks %}
+            <div class="col-md-4">
+                <div class="card mt-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Task ID: {{ task.id }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Assigned Date: {{ task.taskAssignDate }}</h6>
+                        <p class="card-text">{{ task.taskDescription }}</p>
+                        <h6>Categories</h6>
+                        <ul>
+                            {% for category in task.categories.all %}
+                                <li>{{ category.categoryName }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% if task.is_completed %}
+                            <button class="btn btn-success">Completed</button>
+                        {% else %}
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
