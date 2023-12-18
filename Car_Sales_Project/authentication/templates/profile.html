@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %} 
+
+<h1>Welcome to Your Profile</h1>
+<h2>Hola {{ user }}!</h2>
+
+{% if messages %}
+    {% for m in messages %}
+        <p class="bg-success p-3 text-white">{{ m }}</p>
+    {% endfor %}
+{% endif %}
+<br/>
+
+<div class="d-flex flex-wrap p-4">
+  <div class="col-12">
+    <h5>Your Purchased Cars</h5>
+    <div class="d-flex flex-wrap">
+      {% for car in bought_cars %}
+      <div class="card mb-4" style="width: 18rem;">
+          <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.title }}">
+          <div class="card-body">
+              <h5 class="card-title">{{ car.title }}</h5>
+              <p class="card-text">{{ car.description|truncatewords:10 }}</p>
+              <p>Price: ${{ car.price }}</p>
+              <p>Brand: {{ car.brand.name }}</p>
+              <p>Quantity Purchased: {{ car.quantity }}</p>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+<form method="post" style="width: 50%; margin: auto" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        {% for er in form.non_field_errors %}
+            <p class="bg-danger text-white p-3">{{ er }}</p>
+        {% endfor %}
+    {% endif %}
+    <!-- {{ form | crispy }} -->
+    {% for fm in form %} {{ fm.label_tag }} {{ fm }} {{ fm.errors|striptags }} {% endfor %}
+    <br/>
+    <button class="btn btn-warning" type="submit">Change Profile Info</button>
+    <br/><br/>
+    <p><a class="btn btn-info" href="{% url 'passchange' %}">Change Your Password</a>
+        <br/><br/>
+        <a class="btn btn-warning" href="{% url 'passchange2' %}">Change Your Password Without Old Password</a></p>
+</form>
+
+{% endblock %}

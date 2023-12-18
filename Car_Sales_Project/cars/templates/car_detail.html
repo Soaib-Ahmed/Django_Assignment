@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ car.image.url }}" class="img-fluid" alt="{{ car.title }}" />
+    </div>
+    <div class="col-md-6">
+      <h2>{{ car.title }}</h2>
+      <p>{{ car.description }}</p>
+      <p>Price: ${{ car.price }}</p>
+      <p>Brand: {{ car.brand.name }}</p>
+
+      {% if car.quantity %}
+      <p>Quantity: {{ car.quantity }}</p>
+      {% else %}
+      <p>Out of Stock</p>
+      {% endif %} {% if user.is_authenticated %}
+      <a href="{% url 'buy_now' car.id %}" class="btn btn-warning">Buy Now</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

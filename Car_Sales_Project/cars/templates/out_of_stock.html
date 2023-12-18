@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Out of Stock</h1>
+        <p>Sorry, the selected item is currently out of stock.</p>
+        <p>Explore other cars in our <a href="{% url 'homepage' %}">inventory</a>.</p>
+    </div>
+{% endblock %}
