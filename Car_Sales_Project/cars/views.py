@@ -6,16 +6,17 @@ from django.views import View
 from .models import Car
 from django.urls import reverse
 from authentication.models import UserProfile
+from .forms import CommentForm
 
 
-class CarDetailView(DetailView):
-    model = Car
-    template_name = 'car_detail.html'
-    context_object_name = 'car'
+# class CarDetailView(DetailView):
+#     model = Car
+#     template_name = 'car_detail.html'
+#     context_object_name = 'car'
 
-def car_detail(request, car_id):
-    car = Car.objects.get(id=car_id)
-    return render(request, 'car_detail.html', {'car': car})
+# def car_detail(request, car_id):
+#     car = Car.objects.get(id=car_id)
+#     return render(request, 'car_detail.html', {'car': car})
 
 class CarListView(ListView):
     model = Car
@@ -40,3 +41,26 @@ class BuyNowView(View):
             return HttpResponseRedirect(car_detail_url) 
         else:
             return render(request, self.template_name, {'car': car})
+        
+class CarDetailView(DetailView):
+    model = Car
+    template_name = 'car_detail.html'
+
+    def post(self, request, *args, **kwargs):
+        comment_form = CommentForm(data=request.POST)
+        car = self.get_object()
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.car = car
+            new_comment.save()
+        return HttpResponseRedirect(request.path)  # Redirect back to the car detail page after submitting a comment
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        car = self.object
+        comments = car.comments.all()
+        comment_form = CommentForm()
+
+        context['comments'] = comments
+        context['comment_form'] = comment_form
+        return context
