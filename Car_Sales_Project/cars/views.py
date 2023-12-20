@@ -53,7 +53,7 @@ class CarDetailView(DetailView):
             new_comment = comment_form.save(commit=False)
             new_comment.car = car
             new_comment.save()
-        return HttpResponseRedirect(request.path)  # Redirect back to the car detail page after submitting a comment
+        return HttpResponseRedirect(request.path) 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
