@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}
+{% block content %}
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -18,6 +20,27 @@
       <a href="{% url 'buy_now' car.id %}" class="btn btn-warning">Buy Now</a>
       {% endif %}
     </div>
+  </div>
+</div>
+
+<div class="card m-2">
+  <h5 class="p-3">Comments</h5>
+  {% for comment in comments %}
+      <div class="card-body border m-2">
+          <p><b>{{ comment.name }}</b> {{ comment.created_on }}</p>
+          <p>{{ comment.body }}</p>
+      </div>
+  {% endfor %}
+</div>
+
+<div class="card m-2">
+  <div class="card-body">
+      <form method="post">
+          <h5>Add a Comment</h5>
+          {% csrf_token %}
+          {{ comment_form | crispy }}
+          <button class="btn btn-warning">Submit</button>
+      </form>
   </div>
 </div>
 {% endblock %}
